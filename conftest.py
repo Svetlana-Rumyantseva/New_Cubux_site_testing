@@ -24,6 +24,7 @@ description = (By.XPATH, '//textarea[class="_txt-size4 scrollbar"]')
 @pytest.fixture(scope='function')
 def driver():
     options = Options()
+    options.add_argument('--headless')
     options.add_argument(f"user-data-dir={os.path.join(os.path.dirname(__file__), 'authorization')}")
     driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
     driver.maximize_window()
