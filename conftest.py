@@ -1,7 +1,7 @@
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
+# from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -24,9 +24,11 @@ description = (By.XPATH, '//textarea[class="_txt-size4 scrollbar"]')
 @pytest.fixture(scope='function')
 def driver():
     options = Options()
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
     options.add_argument('--headless')
     options.add_argument(f"user-data-dir={os.path.join(os.path.dirname(__file__), 'authorization')}")
-    driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+    driver = webdriver.Chrome(options=options)
     driver.maximize_window()
     driver.implicitly_wait(10)
     yield driver
