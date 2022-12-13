@@ -5,6 +5,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import registration_settings as rs
+
 import os
 
 deletion_icon = (By.XPATH, '//button[@class="Button_link__5qRQJ btn-icon _size2" and @title="Удалить"]')
@@ -34,10 +36,9 @@ def driver():
 def authorization(driver):
     driver.get('https://new.cubux.net/')
     if driver.current_url == 'https://new.cubux.net/login':
-        email = 'sottopassagero@rambler.ru'
-        password = 'as!123kl789!#'
-        driver.find_element(By.CSS_SELECTOR, 'input[placeholder="E-mail"]').send_keys(email)
-        driver.find_element(By.CSS_SELECTOR, 'input[placeholder="Пароль"]').send_keys(password)
+
+        driver.find_element(By.CSS_SELECTOR, 'input[placeholder="E-mail"]').send_keys(rs.email)
+        driver.find_element(By.CSS_SELECTOR, 'input[placeholder="Пароль"]').send_keys(rs.password)
         driver.find_element(By.CLASS_NAME, 'button-loading-content').click()
         WebDriverWait(driver, 10).until(EC.url_changes(driver.current_url),
                                         message=f"The url page after login is changed")
