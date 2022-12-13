@@ -26,10 +26,10 @@ def driver():
     options = Options()
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('start-maximized')
     options.add_argument('--headless')
     options.add_argument(f"user-data-dir={os.path.join(os.path.dirname(__file__), 'authorization')}")
     driver = webdriver.Chrome(options=options)
-    driver.maximize_window()
     driver.implicitly_wait(10)
     yield driver
     driver.quit()
