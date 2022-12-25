@@ -39,9 +39,9 @@ def driver():
 def authorization(driver):
     driver.get('https://new.cubux.net/')
     if driver.current_url == 'https://new.cubux.net/login':
-
-        driver.find_element(By.CSS_SELECTOR, 'input[placeholder="E-mail"]').send_keys(rs.email)
-        driver.find_element(By.CSS_SELECTOR, 'input[placeholder="Password"]').send_keys(rs.password)
+        driver.find_element(By.CSS_SELECTOR, 'li[class="languages-menu-item language--ru"]').click()
+        driver.find_element(By.CSS_SELECTOR, 'input[type="email"]').send_keys(rs.email)
+        driver.find_element(By.NAME, 'LoginForm[password]').send_keys(rs.password)
         driver.find_element(By.CLASS_NAME, 'button-loading-content').click()
         WebDriverWait(driver, 10).until(EC.url_changes(driver.current_url),
                                         message=f"The url page after login is changed")
