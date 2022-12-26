@@ -116,17 +116,27 @@ class BalancePage(BasePage):
         self.find_element(expenses_button).click()
 
     @staticmethod
-    def get_number_value(elements):
-        my_list = []
-        for i in range(len(elements)):
-            elem = elements[i].text
-            text = elem[:-4:]
+    def get_number_values(elements, value):
+        incomes_green_list, expences_red_list, transfers_list, loans_list = [], [], [], []
+        for elem in elements:
+            rgba = elem.value_of_css_property('color')
+            r, g, b, a = ast.literal_eval(rgba.strip("rgba"))
+            hex_value = '#%02x%02x%02x' % (r, g, b)
+            print(hex_value, elem.text)
+            element = elem.text
+            text = element[:-4:]
+            print(text)
             if "," in text:
                 text = text.replace(",", ".")
             if " " in text:
                 text = text.replace(" ", "", text.count(" "))
-            my_list.append(float(text))
-        return my_list
+            print(text)
+            if hex_value == '#6dba34' and value == 'Incomes':
+                incomes_green_list.append(float(text))
+            elif hex_value == '#e45c70' and value == 'Expenses':
+                expences_red_list.append(float(text))
+        return incomes_green_list, expences_red_list
+
 
     def click_transfers_button(self):
         self.wait.until(EC.element_to_be_clickable(low_table_element))

@@ -39,18 +39,25 @@ class TestBalancePagePart1:
     def test_incomes_sorting(self, driver, authorization):
         balance_page = BalancePage(driver)
         balance_page.open_page()
+        elements = balance_page.find_amounts_values()
+        sum_before_sort = sum(balance_page.get_number_values(elements, 'Incomes')[0])
         balance_page.click_incomes_button()
         elements = balance_page.find_amounts_values()
-        assert sum(balance_page.get_number_value(elements)) == 1675, 'Incomes sorting is wrong'
+        sum_after_sort = sum(balance_page.get_number_values(elements, 'Incomes')[0])
+        print(sum_before_sort, sum_after_sort)
+        assert sum_before_sort == sum_after_sort, 'Incomes sorting is wrong'  # OK  BUG=2175
 
     @allure.severity(allure.severity_level.NORMAL)
     @allure.story('The testing of expenses sorting')
     def test_expenses_sorting(self, driver, authorization):
         balance_page = BalancePage(driver)
         balance_page.open_page()
+        elements = balance_page.find_amounts_values()
+        sum_before_sort = sum(balance_page.get_number_values(elements, 'Expenses')[1])
         balance_page.click_expenses_button()
         elements = balance_page.find_amounts_values()
-        assert round(sum(balance_page.get_number_value(elements)), 1) == -498.8, 'Expenses sorting is wrong'
+        sum_after_sort = sum(balance_page.get_number_values(elements, 'Expenses')[1])
+        assert sum_before_sort == sum_after_sort, 'Expenses sorting is wrong'  # OK
 
     @allure.severity(allure.severity_level.NORMAL)
     @allure.story('The testing of loans sorting')
