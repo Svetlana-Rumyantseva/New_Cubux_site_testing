@@ -53,16 +53,17 @@ def authorization(driver):
         driver.find_element(By.CLASS_NAME, 'button-loading-content').click()
         WebDriverWait(driver, 10).until(EC.url_changes(driver.current_url),
                                         message=f"The url page after login is changed")
-        cur_language = driver.find_element(By.XPATH, '//span[@class="LanguageSelect_nameCurrent__uU0qT"]').text
-        print(cur_language)
-        if cur_language != 'Русский':
-            driver.find_element(By.CLASS_NAME, "Button_button__QS2NC").click()
-            ActionChains(driver).\
-                move_to_element(driver.find_elements(By.XPATH, '//div[@class="LanguageSelect_item__eB6gw"]')[3]).\
-                click().perform()
-            WebDriverWait(driver, 10).until(
-                EC.invisibility_of_element_located(driver.find_elements(By.XPATH,
-                                                                        '//div[@class="LanguageSelect_popup__Sw11j"]')))
+    cur_language = driver.find_element(By.XPATH, '//span[@class="LanguageSelect_nameCurrent__uU0qT"]').text
+    print(cur_language)
+    if cur_language != 'Русский':
+        driver.find_element(By.CLASS_NAME, "Button_button__QS2NC").click()
+        ActionChains(driver).\
+            move_to_element(driver.find_elements(By.XPATH, '//div[@class="LanguageSelect_item__eB6gw"]')[3]).\
+            click().perform()
+        WebDriverWait(driver, 10).\
+            until(EC.invisibility_of_element_located(driver.
+                                                     find_elements(By.XPATH,
+                                                                   '//div[@class="LanguageSelect_popup__Sw11j"]')))
 
 
 @pytest.fixture(scope='function')
