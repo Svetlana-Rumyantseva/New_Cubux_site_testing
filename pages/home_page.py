@@ -1,5 +1,5 @@
 from pages.base_page import BasePage
-from locators import home_page_locators as hpl
+from pages.locators import home_page_locators as hpl
 from selenium.webdriver.support import expected_conditions as EC
 
 
