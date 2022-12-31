@@ -28,8 +28,6 @@ def driver():
 def authorization(driver):
     driver.get('https://new.cubux.net/')
     if driver.current_url == 'https://new.cubux.net/login':
-        # email = 'sottopassagero@rambler.ru'
-        # password = 'as!123kl789!#'
         WebDriverWait(driver, 10).until(EC.element_to_be_clickable(lc.eng_lang_icon)).click()
         driver.find_element(By.CSS_SELECTOR, lc.eng_language_icon)
         driver.find_element(By.CSS_SELECTOR, lc.email).send_keys(rs.email)
